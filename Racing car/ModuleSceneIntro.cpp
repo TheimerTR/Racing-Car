@@ -20,6 +20,24 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	Cylinder* c = new Cylinder();
+	c->height = 1.5f;
+	c->radius = 0.5f;
+	c->SetPos(0, 0.8f, 0); 
+	c->SetRotation(90, vec3(0,0,1));
+	App->physics->AddBody(*c, 0); 
+
+
+	primitives.PushBack(c); 
+
+	
+
+	for (int n = 0; n < primitives.Count(); n++) {
+
+
+	}
+	
+
 	return ret;
 }
 
@@ -37,6 +55,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+	for (int n = 0; n < primitives.Count(); n++) {
+		primitives[n]->Render();
+	}
 
 	return UPDATE_CONTINUE;
 }
