@@ -3,6 +3,9 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "Timer.h"
+#include "PhysVehicle3D.h"
+#include "PhysBody3D.h"
+#include "ModulePhysics3D.h"
 
 struct PhysVehicle3D;
 
@@ -42,5 +45,12 @@ public:
 	int v3;
 	int v4;
 
+	bool mass = false;
+	bool grav = false;
+
+	bool PhysEnabled = true;
+
 	float* initiTransform;
+	VehicleInfo car;
+	ModulePhysics3D* worldPhys;
 };

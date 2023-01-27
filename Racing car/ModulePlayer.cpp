@@ -20,8 +20,6 @@ bool ModulePlayer::Start()
 
 	time = new Timer();
 
-	VehicleInfo car;
-
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 2, 4);
 	car.chassis_offset.Set(0, 1.5, 0);
@@ -115,141 +113,352 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	v1 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_contactNormalWS.closestAxis();
-	v2 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_contactNormalWS.closestAxis();
-	v3 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_contactNormalWS.closestAxis();
-	v4 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_contactNormalWS.closestAxis();
-
-
-	if (v1 != 0 && v2 != 0 && v3 != 0 && v4 != 0) {
-		LOG("ALL");
-		vehicle->Turn(180);
-	}
-	else if (v1 != 0) 
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
 	{
-		LOG("V1");
-		vehicle->Turn(-180);
-	}
-	else if (v2 != 0)
-	{
-		vehicle->Turn(-180);
-		LOG("V2")
-	}	
-	else if (v3 != 0)
-	{
-		vehicle->Turn(180);
-		LOG("V3");
-	}	
-	else if (v4 != 0)
-	{
-		LOG("V4");
-		vehicle->Turn(-180);
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		time->Stop();
-		time->Start();
-		TupD = true;
-		TupU = false;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-			if (turn < TURN_DEGREES)
-				turn += TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-			if (turn > -TURN_DEGREES)
-				turn -= TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		time->Stop();
-		time->Start();
-		TdowD = true;
-		TdowU = false;
-
-	}
-
-	if (TupD) 
-	{
-		if (acceleration >= MAX_ACCELERATION)
+		PhysEnabled = !PhysEnabled;
+		if (PhysEnabled) 
 		{
-			acceleration = MAX_ACCELERATION;
-		}
-		else
+			LOG("Physics: True");
+		}		
+		if (!PhysEnabled) 
 		{
-			acceleration = acceleration + timer;
+			LOG("Physics: False");
 		}
 	}
 
-	if (TupU)
+	if (PhysEnabled) 
 	{
-		if (acceleration <= 0)
+		v1 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_contactNormalWS.closestAxis();
+		v2 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_contactNormalWS.closestAxis();
+		v3 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_contactNormalWS.closestAxis();
+		v4 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_contactNormalWS.closestAxis();
+
+		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+			mass = true;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+			grav = true;
+		}
+
+		if (mass == true)
 		{
-			brake = 6;
-			acceleration = 0;
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			{
+				car.mass = 100.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+			{
+				car.mass = 200.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			{
+				car.mass = 300.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+			{
+				car.mass = 400.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+			{
+				car.mass = 500.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+			{
+				car.mass = 600.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+			{
+				car.mass = 700.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+			{
+				car.mass = 800.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+			{
+				car.mass = 900.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+			{
+				car.mass = 1000.0f;
+				mass = false;
+				LOG("Mass: %f", car.mass);
+			}
+		}
+
+		if (grav == true)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -1.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -1");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -2.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -2");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -3.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -3");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -4.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -4");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -5");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -6.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -6");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -7.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -7");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -8.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -8");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -9.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -9");
+			}
+			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+			{
+				App->physics->world->setGravity(btVector3(0.0f, -10.0f, 0.0f));
+				grav = false;
+				LOG("GRAVITY: -10");
+			}
+		}
+
+		if (v1 != 1 && v2 != 1 && v3 != 1 && v4 != 1) {
+			LOG("ALL");
+			vehicle->Turn(180);
+		}
+		else if (v1 != 1)
+		{
+			LOG("V1");
+			vehicle->Turn(-180);
+		}
+		else if (v2 != 1)
+		{
+			vehicle->Turn(-180);
+			LOG("V2")
+		}
+		else if (v3 != 1)
+		{
+			vehicle->Turn(180);
+			LOG("V3");
+		}
+		else if (v4 != 1)
+		{
+			LOG("V4");
+			vehicle->Turn(-180);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+			time->Stop();
+			time->Start();
+			TupD = true;
 			TupU = false;
 		}
 
-		acceleration = acceleration - timer*2;
-	}
-
-	if (TdowD)
-	{
-		if (acceleration <= -MAX_ACCELERATION)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			acceleration = -MAX_ACCELERATION;
+			if (acceleration >= MAX_ACCELERATION)
+			{
+				acceleration = MAX_ACCELERATION;
+			}
+			else
+			{
+				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.01);
+			}
 		}
-		else
-		{
-			acceleration = acceleration - timer;
-		}
-	}
 
-	if (TdowU)
-	{
-		if (acceleration >= 0)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			brake = 6;
-			acceleration = 0;
+			if (turn < TURN_DEGREES)
+				turn += TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			if (turn > -TURN_DEGREES)
+				turn -= TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+
+			time->Stop();
+			time->Start();
+			TdowD = true;
 			TdowU = false;
 		}
 
-		acceleration = acceleration + timer * 2;
-	}
-
-	//LOG("Acceleration: %f", acceleration);
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-	{
-		if (acceleration > 0.0f)
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		{
-			TupD = false;
-			time->Start();
-			TupU = true;
+			if (acceleration <= -MAX_ACCELERATION)
+			{
+				acceleration = -MAX_ACCELERATION;
+			}
+			else
+			{
+				acceleration = acceleration - timer;
+			}
+		}
+
+		if (!TdowD)
+		{
+			if (acceleration <= 0)
+			{
+				brake = 6;
+				acceleration = 0;
+				TupU = false;
+			}
+			if (!TupD)
+			{
+				if (acceleration >= 2)
+				{
+					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.01);
+				}
+			}
+		}
+
+		if (!TupD)
+		{
+			if (acceleration >= 0)
+			{
+				brake = 6;
+				acceleration = 0;
+				TdowU = false;
+			}
+			if (!TdowD)
+			{
+				if (acceleration <= -2)
+				{
+					acceleration = acceleration + timer * 2;
+				}
+			}
+		}
+
+		if (TupU)
+		{
+			if (acceleration <= 0)
+			{
+				brake = 6;
+				acceleration = 0;
+				TupU = false;
+			}
+
+			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.01);
+		}
+
+		if (TdowU)
+		{
+			if (acceleration >= 0)
+			{
+				brake = 6;
+				acceleration = 0;
+				TdowU = false;
+			}
+
+			acceleration = acceleration + timer * 2;
+		}
+
+		//LOG("Acceleration: %f", acceleration);
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+		{
+			if (acceleration > 0.0f)
+			{
+				TupD = false;
+				time->Start();
+				TupU = true;
+			}
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+		{
+			if (acceleration < 0.0f)
+			{
+				TdowD = false;
+				time->Start();
+				TdowU = true;
+			}
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP) || (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP))
+		{
+			turn = 0;
+		}
+
+		timer = time->Read();
+	}
+	else 
+	{
+		turn = acceleration = brake = 0.0f;
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			acceleration = MAX_ACCELERATION;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			if (turn < TURN_DEGREES)
+				turn += TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			if (turn > -TURN_DEGREES)
+				turn -= TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			brake = BRAKE_POWER;
 		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-	{
-		if (acceleration < 0.0f)
-		{
-			TdowD = false;
-			time->Start();
-			TdowU = true;
-		}
-	}
-
-	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP) || (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP))
-	{
-		turn = 0;
-	}
-
+	
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -259,9 +468,6 @@ update_status ModulePlayer::Update(float dt)
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
-
-
-	timer = time->Read();
 
 	return UPDATE_CONTINUE;
 }
