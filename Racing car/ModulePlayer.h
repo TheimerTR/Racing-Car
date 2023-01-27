@@ -48,6 +48,8 @@ public:
 	bool mass = false;
 	bool grav = false;
 
+	bool PhysEnabled = true;
+
 	float* initiTransform;
 	VehicleInfo car;
 	ModulePhysics3D* worldPhys;
