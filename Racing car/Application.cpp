@@ -72,7 +72,21 @@ bool Application::Init()
 void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
+
+	float deltaTimeGoal = 1/fps;
+
+	if (dt < deltaTimeGoal)
+	{
+
+		float delay = (deltaTimeGoal - dt) * 1000;
+
+		SDL_Delay(delay);
+
+		dt = deltaTimeGoal;
+	}
+
 	ms_timer.Start();
+
 }
 
 // ---------------------------------------------

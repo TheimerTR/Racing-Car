@@ -28,7 +28,8 @@ public:
 private:
 
 	Timer	ms_timer;
-	float	dt;
+	int fps = 60;
+	float dt;
 	p2List<Module*> list_modules;
 
 public:

@@ -113,6 +113,11 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		App->camera->freeCam = !App->camera->freeCam;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
 	{
 		PhysEnabled = !PhysEnabled;
