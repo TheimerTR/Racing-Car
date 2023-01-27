@@ -121,6 +121,10 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 		mass = true;
 	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		grav = true;
+	}
 
 	if (mass == true)
 	{
@@ -183,6 +187,70 @@ update_status ModulePlayer::Update(float dt)
 			car.mass = 1000.0f;
 			mass = false;
 			LOG("Mass: %f", car.mass);
+		}
+	}
+	
+	if (grav == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -1.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -1");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -2.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -2");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -3.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -3");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -4.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -4");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -5");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -6.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -6");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -7.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -7");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -8.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -8");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -9.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -9");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+		{
+			App->physics->world->setGravity(btVector3(0.0f, -10.0f, 0.0f));
+			grav = false;
+			LOG("GRAVITY: -10");
 		}
 	}
 
