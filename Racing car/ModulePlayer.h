@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "Timer.h"
+#include "PhysVehicle3D.h"
+#include "PhysBody3D.h"
 
 struct PhysVehicle3D;
 
@@ -42,5 +44,8 @@ public:
 	int v3;
 	int v4;
 
+	bool mass = false;
+
 	float* initiTransform;
+	VehicleInfo car;
 };
