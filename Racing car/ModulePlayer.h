@@ -36,4 +36,11 @@ public:
 
 	bool TdowD = false;
 	bool TdowU = false;
+
+	int v1;
+	int v2;
+	int v3;
+	int v4;
+
+	float* initiTransform;
 };

@@ -115,6 +115,36 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	v1 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_contactNormalWS.closestAxis();
+	v2 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_contactNormalWS.closestAxis();
+	v3 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_contactNormalWS.closestAxis();
+	v4 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_contactNormalWS.closestAxis();
+
+
+	if (v1 != 0 && v2 != 0 && v3 != 0 && v4 != 0) {
+		LOG("ALL");
+		vehicle->Turn(180);
+	}
+	else if (v1 != 0) 
+	{
+		LOG("V1");
+		vehicle->Turn(-180);
+	}
+	else if (v2 != 0)
+	{
+		vehicle->Turn(-180);
+		LOG("V2")
+	}	
+	else if (v3 != 0)
+	{
+		vehicle->Turn(180);
+		LOG("V3");
+	}	
+	else if (v4 != 0)
+	{
+		LOG("V4");
+		vehicle->Turn(-180);
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
