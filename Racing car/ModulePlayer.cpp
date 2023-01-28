@@ -169,11 +169,11 @@ update_status ModulePlayer::Update(float dt)
 		wheel3 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_groundObject;
 
 		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-			mass = true;
+			mass = !mass;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
-			grav = true;
+			grav = !grav;
 		}
 
 		if (mass == true)
@@ -323,7 +323,8 @@ update_status ModulePlayer::Update(float dt)
 			TupD = true;
 			TupU = false;
 		}
-
+		
+		//Cuanto mas tiempo se mantenga pulsado mas acelera
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
 			if (acceleration >= MAX_ACCELERATION)
@@ -482,7 +483,10 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 	
-	vehicle->ApplyEngineForce(acceleration);
+	//Aqui supongo que habria que calcular el drag
+	vehicle->GetKmh();
+	float drag= ((vehicle->GetKmh()/3.6)* (vehicle->GetKmh() / 3.6)/2) * (1.21) * (0.25); //v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM
+	vehicle->ApplyEngineForce(acceleration-drag);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 

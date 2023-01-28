@@ -22,6 +22,8 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void CreateLineWall(vec3 initial, vec3 final, float radius, float height, int pilarnum);
+
 public:
 	/*
 	PhysBody3D* pb_snake[MAX_SNAKE];
