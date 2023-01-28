@@ -21,9 +21,31 @@ bool ModulePlayer::Start()
 	time = new Timer();
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
-	car.mass = 500.0f;
+	car.chassis_size.Set(3.5,3.0, 11);//Hitbox
+	car.chassis1_size.Set(3.5, 0.8, 8);//base coche
+	car.chassis2_size.Set(3.5, 2.0, 4);//base parte trasera
+	car.chassis3_size.Set(5, 0.3, 1);//alerones delanteros
+	car.chassis4_size.Set(2, 1.9, 2);//cabina
+	car.chassis5_size.Set(0.2, 1, 1);//sujecion aleron izq
+	car.chassis6_size.Set(0.2, 1, 1);//sujecion aleron dch
+	car.chassis7_size.Set(5, 0.2, 1.3);//aleron
+
+	car.chassis8_size.Set(1, 0.8,3.7);//Palo sujeata aleron delantero
+
+
+	car.chassis_offset.Set(0, 2.4, 0.5);
+	car.chassis1_offset.Set(0, 1.8, 0);
+	car.chassis2_offset.Set(0, 2.4, -3);
+	car.chassis3_offset.Set(0, 1.8, 5.2);
+	
+	car.chassis4_offset.Set(0, 2.5, -1.9);
+	car.chassis5_offset.Set(1.65, 3.9, -4.5);
+	car.chassis6_offset.Set(-1.65, 3.9, -4.5);
+	car.chassis7_offset.Set(0, 4.4, -4.5);
+	car.chassis8_offset.Set(0, 1.8, 4.5);
+	
+
+	car.mass = 250.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 0.88f;
@@ -32,15 +54,15 @@ bool ModulePlayer::Start()
 	car.maxSuspensionForce = 6000.0f;
 
 	// Wheel properties ---------------------------------------
-	float connection_height = 1.2f;
+	float connection_height =2.0f;
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
 
 	// Don't change anything below this line ------------------
 
-	float half_width = car.chassis_size.x*0.5f;
-	float half_length = car.chassis_size.z*0.5f;
+	float half_width = car.chassis1_size.x*0.5f;
+	float half_length = car.chassis1_size.z*0.5f;
 	
 	vec3 direction(0,-1,0);
 	vec3 axis(-1,0,0);
@@ -113,7 +135,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->camera->freeCam = !App->camera->freeCam;
 	}

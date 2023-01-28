@@ -32,7 +32,7 @@ bool ModuleSceneIntro::Start()
 		posx = posx + 2;
 	}
 
-	/*vec3 initial = { -3, 0.8f, -1 };
+	vec3 initial = { -3, 0.8f, -1 };
 	vec3 final = { -30, 0.8f, -50 };
 	float radius = 0.5f;
 	float PI = 3.14159;
@@ -58,7 +58,7 @@ bool ModuleSceneIntro::Start()
 
 			LOG("x: %f, z: %f, angle: %f", x, z, angle);
 		}
-	*/
+	
 
 	return ret;
 }
