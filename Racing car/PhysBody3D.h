@@ -3,6 +3,11 @@
 
 #include "p2List.h"
 
+#include "glmath.h"
+#include <cmath>
+#include "Bullet/include/btBulletDynamicsCommon.h"
+
+
 class btRigidBody;
 class Module;
 
@@ -18,12 +23,16 @@ public:
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
+	btVector3 GetPosition();
+	void SetinitiPos();
+	btVector3 GetinitiPos();
 
 private:
 	btRigidBody* body = nullptr;
 
 public:
 	p2List<Module*> collision_listeners;
+	btVector3 INITposition;
 };
 
 #endif // __PhysBody3D_H__

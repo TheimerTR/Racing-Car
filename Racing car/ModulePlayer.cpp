@@ -120,7 +120,9 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 12, 10);
-	
+
+	vehicle->SetinitiPos();
+
 	return true;
 }
 
@@ -135,6 +137,11 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		vehicle->ResetCar();
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->camera->freeCam = !App->camera->freeCam;
@@ -155,10 +162,11 @@ update_status ModulePlayer::Update(float dt)
 
 	if (PhysEnabled) 
 	{
-		v1 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_contactNormalWS.closestAxis();
-		v2 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_contactNormalWS.closestAxis();
-		v3 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_contactNormalWS.closestAxis();
-		v4 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_contactNormalWS.closestAxis();
+
+		wheel0 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_groundObject;
+		wheel1 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_groundObject;
+		wheel2 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_groundObject;
+		wheel3 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_groundObject;
 
 		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 			mass = true;
@@ -296,29 +304,17 @@ update_status ModulePlayer::Update(float dt)
 			}
 		}
 
-		if (v1 != 1 && v2 != 1 && v3 != 1 && v4 != 1) {
+		if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1) 
+		{
 			LOG("ALL");
-			vehicle->Turn(180);
 		}
-		else if (v1 != 1)
+		else if (wheel0 != 1 && wheel2 != 1)
 		{
-			LOG("V1");
-			vehicle->Turn(-180);
+			vehicle->ResetInitPos();
 		}
-		else if (v2 != 1)
+		else if (wheel1 != 1 && wheel3 != 1)
 		{
-			vehicle->Turn(-180);
-			LOG("V2")
-		}
-		else if (v3 != 1)
-		{
-			vehicle->Turn(180);
-			LOG("V3");
-		}
-		else if (v4 != 1)
-		{
-			LOG("V4");
-			vehicle->Turn(-180);
+			vehicle->ResetInitPos();
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {

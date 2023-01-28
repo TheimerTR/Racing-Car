@@ -12,6 +12,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
+#include "PhysVehicle3D.h"
 
 class Application
 {

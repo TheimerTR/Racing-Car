@@ -40,10 +40,10 @@ public:
 	bool TdowD = false;
 	bool TdowU = false;
 
-	int v1;
-	int v2;
-	int v3;
-	int v4;
+	bool wheel0 = true;
+	bool wheel1 = true;
+	bool wheel2 = true;
+	bool wheel3 = true;
 
 	bool mass = false;
 	bool grav = false;
@@ -53,4 +53,5 @@ public:
 	float* initiTransform;
 	VehicleInfo car;
 	ModulePhysics3D* worldPhys;
+	btRigidBody* body = nullptr;
 };

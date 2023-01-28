@@ -1,6 +1,12 @@
 #include "PhysVehicle3D.h"
 #include "Primitive.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
+#include "Application.h"
+
+#include "PhysBody3D.h"
+#include "glmath.h"
+#include <cmath>
+#include "Bullet/include/btBulletDynamicsCommon.h"
 
 // ----------------------------------------------------------------------------
 VehicleInfo::~VehicleInfo()
@@ -182,4 +188,62 @@ void PhysVehicle3D::Turn(float degrees)
 float PhysVehicle3D::GetKmh() const
 {
 	return vehicle->getCurrentSpeedKmHour();
+}
+
+btVector3 PhysBody3D::GetPosition()
+{
+
+	btVector3 position = body->getWorldTransform().getOrigin();
+
+	return position;
+}
+
+void PhysBody3D::SetinitiPos()
+{
+
+	INITposition = body->getWorldTransform().getOrigin();
+}
+
+btVector3 PhysBody3D::GetinitiPos()
+{
+	return INITposition;
+}
+
+void PhysVehicle3D::ResetInitPos()
+{
+	float M[16];
+	memset(M, 0.0f, sizeof(M));
+
+	vec3 p = { GetPosition().getX(), GetPosition().getY(), GetPosition().getZ() };
+	M[12] = p.x;
+	M[13] = p.y;
+	M[14] = p.z;
+	M[15] = 1;
+	M[0] = cos(0);
+	M[2] = -sin(0);
+	M[5] = 1;
+	M[8] = sin(0);
+	M[10] = cos(0);
+
+	SetTransform(M);
+}
+
+void PhysVehicle3D::ResetCar()
+{
+	float M[16];
+	memset(M, 0.0f, sizeof(M));
+
+	vec3 p = { GetinitiPos().getX(), GetinitiPos().getY(), GetinitiPos().getZ() };
+	M[12] = p.x;
+	M[13] = p.y;
+	M[14] = p.z;
+	M[15] = 1;
+	M[0] = cos(0);
+	M[2] = -sin(0);
+	M[5] = 1;
+	M[8] = sin(0);
+	M[10] = cos(0);
+
+	SetTransform(M);
+	SetPos(p.x,p.y,p.z);
 }
