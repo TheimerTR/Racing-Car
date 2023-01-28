@@ -335,8 +335,6 @@ update_status ModulePlayer::Update(float dt)
 			else
 			{
 				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.001);
-				LOG("TIMER: %d", timer);
-				LOG("Accel: %d", acceleration);
 			}
 		}
 
