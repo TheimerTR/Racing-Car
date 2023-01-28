@@ -30,11 +30,23 @@ Uint32 Timer::Read()
 {
 	if(running == true)
 	{
-		return SDL_GetTicks() - started_at;
+		return (SDL_GetTicks() - started_at);
 	}
 	else
 	{
-		return stopped_at - started_at;
+		return (stopped_at - started_at);
+	}
+}
+
+Uint32 Timer::ReadCar()
+{
+	if (running == true)
+	{
+		return (SDL_GetTicks() - started_at) / 1000;
+	}
+	else
+	{
+		return (stopped_at - started_at) / 1000;
 	}
 }
 

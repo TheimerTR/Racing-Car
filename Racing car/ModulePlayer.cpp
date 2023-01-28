@@ -303,17 +303,18 @@ update_status ModulePlayer::Update(float dt)
 				LOG("GRAVITY: -10");
 			}
 		}
-
 		if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1) 
 		{
-			LOG("ALL");
+
 		}
 		else if (wheel0 != 1 && wheel2 != 1)
 		{
+
 			vehicle->ResetInitPos();
 		}
 		else if (wheel1 != 1 && wheel3 != 1)
 		{
+
 			vehicle->ResetInitPos();
 		}
 
@@ -333,7 +334,9 @@ update_status ModulePlayer::Update(float dt)
 			}
 			else
 			{
-				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.01);
+				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.001);
+				LOG("TIMER: %d", timer);
+				LOG("Accel: %d", acceleration);
 			}
 		}
 
@@ -381,7 +384,7 @@ update_status ModulePlayer::Update(float dt)
 			{
 				if (acceleration >= 2)
 				{
-					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.01);
+					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.001);
 				}
 			}
 		}
@@ -412,7 +415,7 @@ update_status ModulePlayer::Update(float dt)
 				TupU = false;
 			}
 
-			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.01);
+			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.001);
 		}
 
 		if (TdowU)
@@ -454,7 +457,7 @@ update_status ModulePlayer::Update(float dt)
 			turn = 0;
 		}
 
-		timer = time->Read();
+		timer = time->ReadCar();
 	}
 	else 
 	{

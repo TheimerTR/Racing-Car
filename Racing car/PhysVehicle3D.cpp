@@ -215,15 +215,15 @@ void PhysVehicle3D::ResetInitPos()
 	memset(M, 0.0f, sizeof(M));
 
 	vec3 p = { GetPosition().getX(), GetPosition().getY(), GetPosition().getZ() };
-	M[12] = p.x;
-	M[13] = p.y;
-	M[14] = p.z;
 	M[15] = 1;
 	M[0] = cos(0);
 	M[2] = -sin(0);
 	M[5] = 1;
 	M[8] = sin(0);
 	M[10] = cos(0);
+	M[12] = p.x;
+	M[13] = p.y;
+	M[14] = p.z;
 
 	SetTransform(M);
 }
@@ -234,15 +234,15 @@ void PhysVehicle3D::ResetCar()
 	memset(M, 0.0f, sizeof(M));
 
 	vec3 p = { GetinitiPos().getX(), GetinitiPos().getY(), GetinitiPos().getZ() };
-	M[12] = p.x;
-	M[13] = p.y;
-	M[14] = p.z;
 	M[15] = 1;
 	M[0] = cos(0);
 	M[2] = -sin(0);
 	M[5] = 1;
 	M[8] = sin(0);
 	M[10] = cos(0);
+	M[12] = p.x;
+	M[13] = p.y;
+	M[14] = p.z;
 
 	SetTransform(M);
 	SetPos(p.x,p.y,p.z);
