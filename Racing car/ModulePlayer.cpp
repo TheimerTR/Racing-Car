@@ -326,7 +326,7 @@ update_status ModulePlayer::Update(float dt)
 		}
 		
 		//Cuanto mas tiempo se mantenga pulsado mas acelera
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
 		{
 			if (acceleration >= MAX_ACCELERATION)
 			{
@@ -334,7 +334,7 @@ update_status ModulePlayer::Update(float dt)
 			}
 			else
 			{
-				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.001);
+				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.0035);
 			}
 		}
 
@@ -358,7 +358,7 @@ update_status ModulePlayer::Update(float dt)
 			TdowU = false;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_UP) == KEY_IDLE)
 		{
 			if (acceleration <= -MAX_ACCELERATION)
 			{
@@ -366,7 +366,7 @@ update_status ModulePlayer::Update(float dt)
 			}
 			else
 			{
-				acceleration = acceleration - timer;
+				acceleration = (acceleration - timer) / (car.mass * 0.0035);
 			}
 		}
 
@@ -382,7 +382,7 @@ update_status ModulePlayer::Update(float dt)
 			{
 				if (acceleration >= 2)
 				{
-					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.001);
+					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
 				}
 			}
 		}
@@ -413,7 +413,7 @@ update_status ModulePlayer::Update(float dt)
 				TupU = false;
 			}
 
-			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.001);
+			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
 		}
 
 		if (TdowU)
@@ -485,8 +485,8 @@ update_status ModulePlayer::Update(float dt)
 	}
 	
 	//Aqui supongo que habria que calcular el drag
-	vehicle->GetKmh();
-	float drag= ((vehicle->GetKmh()/3.6)* (vehicle->GetKmh() / 3.6)/2) * (1.21) * (0.25); //v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM
+	int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
+	float drag= direction*((vehicle->GetKmh()/3.6)* (vehicle->GetKmh() / 3.6)/2) * (1.21) * (0.075) * (3.5*3); //v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
 	vehicle->ApplyEngineForce(acceleration-drag);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -494,7 +494,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f", vehicle->GetKmh(),acceleration,drag);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
