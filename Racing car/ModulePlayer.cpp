@@ -340,7 +340,6 @@ update_status ModulePlayer::Update(float dt)
 
 				if (tW >= 2)
 				{
-					LOG("2");
 					vehicle->ResetInitPos();
 					TimWait->Stop();
 					wait = false;
@@ -534,6 +533,13 @@ update_status ModulePlayer::Update(float dt)
 	int posZ = vehicle->GetPosition().z();
 	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
 	App->window->SetTitle(title);
+
+	LOG("Y CAR POS: %d", posY);
+
+	if (posY <= 0)
+	{
+		vehicle->ResetCar();
+	}
 
 	return UPDATE_CONTINUE;
 }
