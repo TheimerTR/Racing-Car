@@ -48,7 +48,7 @@ update_status ModuleCamera3D::Update(float dt)
 		float playerPosX = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() + 20 * App->player->vehicle->vehicle->getForwardVector().getX();
 		float playerPosZ = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() + 20 * App->player->vehicle->vehicle->getForwardVector().getZ();
 
-		LookAt(vec3(playerPosX, 1, playerPosZ));
+		LookAt(vec3(playerPosX, 55, playerPosZ));
 	}
 	
 

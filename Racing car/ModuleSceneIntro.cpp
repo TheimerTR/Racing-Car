@@ -24,20 +24,50 @@ bool ModuleSceneIntro::Start()
 	vec3 initial;
 	vec3 final;
 	float radius = 0.5f;
-	float height = 2.f;
+	float height = 2.5f;
 
-	CreateLineWall(initial = { -150, 0.8f, 100 }, final = { 150, 0.8f, 100 }, radius, height, 100);
-	CreateLineWall(initial = { -150, 0.8f, 130 }, final = { 160, 0.8f, 130 }, radius, height, 100);
-	CreateLineWall(initial = { 152, 0.8f, 100 }, final = { 160, 0.8f, 85 }, radius, height, 6);
-	CreateLineWall(initial = { 162, 0.8f, 130 }, final = { 190, 0.8f, 85 }, radius, height, 15);
-	CreateLineWall(initial = { 190, 0.8f, 83 }, final = { 190, 0.8f, 25 }, radius, height, 15);
-	CreateLineWall(initial = { 160, 0.8f, 83 }, final = { 160, 0.8f, 25 }, radius, height, 15);
+	CreateLineWall(initial = { -150, 52.8f, 100 }, final = { 150, 52.8f, 100 }, radius, height, 100);
+	CreateLineWall(initial = { -150, 52.8f, 130 }, final = { 160, 52.8f, 130 }, radius, height, 100);
+	CreateLineWall(initial = { 152, 52.8f, 100 }, final = { 160, 52.8f, 85 }, radius, height, 6);
+	CreateLineWall(initial = { 162, 52.8f, 130 }, final = { 190, 52.8f, 85 }, radius, height, 15);
+	CreateLineWall(initial = { 190, 52.8f, 83 }, final = { 190, 52.8f, 25 }, radius, height, 15);
+	CreateLineWall(initial = { 160, 52.8f, 83 }, final = { 160, 52.8f, 25 }, radius, height, 15);
+	CreateLineWall(initial = { 160, 52.8f, 23 }, final = { 147, 52.8f, 15 }, radius, height, 6);
+	CreateLineWall(initial = { 190, 52.8f, 23 }, final = { 180, 52.8f, 10 }, radius, height, 6);
+	CreateLineWall(initial = { 147, 52.8f, 13 }, final = { 147, 52.8f, -200 }, radius, height, 55);
+	CreateLineWall(initial = { 180, 52.8f, 8 }, final = { 180, 52.8f, -200 }, radius, height, 55);
+	CreateLineWall(initial = { 147, 52.8f, -200 }, final = { 130, 52.8f, -225 }, radius, height, 7);
 
-	//Cube* cube = new Cube(); 
-	//cube->size = { 10, 2, 30 }; 
-	//cube->SetPos(170, 2.f, 60); 
-	//cube->SetRotation(40, vec3(1, 0, 0)); 
-	//primitives.PushBack(cube); 
+
+
+	Cube* ground1 = new Cube(); 
+	ground1->size = { 1000, 2, 500 };
+	ground1->SetPos(170, 50, 200);
+	ground1->color = Green; 
+	App->physics->AddBody(*ground1, 0);
+	primitives.PushBack(ground1);
+
+	Cube* ground2 = new Cube();
+	ground2->size = { 50, 2, 250 };
+	ground2->SetPos(170, 50, -200);
+	ground2->color = Blue;
+	App->physics->AddBody(*ground2, 0);
+	primitives.PushBack(ground2);
+
+	Cube* ground3 = new Cube();
+	ground3->size = { 350, 2, 300 };
+	ground3->SetPos(-25, 50, -200);
+	ground3->color = Blue;
+	App->physics->AddBody(*ground3, 0);
+	primitives.PushBack(ground3);
+
+	Cube* cube = new Cube(); 
+	cube->size = { 10, 2, 30 }; 
+	cube->SetPos(170, 55.f, -10); 
+	cube->SetRotation(20, vec3(1, 0, 0)); 
+	App->physics->AddBody(*cube, 0);
+
+	primitives.PushBack(cube); 
 
 
 
@@ -82,7 +112,7 @@ void ModuleSceneIntro::CreateLineWall(vec3 initial, vec3 final, float radius, fl
 	for (int i = 0; i < pilarnum; i++) {
 		float x = initial.x + i * increment * cos(angle);
 		float z = initial.z + i * increment * sin(angle);
-		float y = 0.7f;
+		float y = initial.y;
 
 
 		Cylinder* c = new Cylinder();
