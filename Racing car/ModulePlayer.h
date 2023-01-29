@@ -65,4 +65,5 @@ public:
 
 	bool win;
 	bool SlowArea = false;
+	bool fxwin = false;
 };
