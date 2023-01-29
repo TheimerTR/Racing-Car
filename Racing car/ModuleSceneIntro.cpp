@@ -35,8 +35,14 @@ bool ModuleSceneIntro::Start()
 	CreateLineWall(initial = { 160, 52.8f, 23 }, final = { 147, 52.8f, 15 }, radius, height, 6);
 	CreateLineWall(initial = { 190, 52.8f, 23 }, final = { 180, 52.8f, 10 }, radius, height, 6);
 	CreateLineWall(initial = { 147, 52.8f, 13 }, final = { 147, 52.8f, -200 }, radius, height, 55);
-	CreateLineWall(initial = { 180, 52.8f, 8 }, final = { 180, 52.8f, -200 }, radius, height, 55);
+	CreateLineWall(initial = { 180, 52.8f, 8 }, final = { 180, 52.8f, -220 }, radius, height, 60);
 	CreateLineWall(initial = { 147, 52.8f, -200 }, final = { 130, 52.8f, -225 }, radius, height, 7);
+	CreateLineWall(initial = { 180, 52.8f, -222 }, final = { 170, 52.8f, -260 }, radius, height, 9);
+	CreateLineWall(initial = { 170, 52.8f, -260 }, final = { -150, 52.8f, -260 }, radius, height, 90);
+	CreateLineWall(initial = { 128, 52.8f, -224 }, final = { -50, 52.8f, -225 }, radius, height, 70);
+	CreateLineWall(initial = { -50, 52.8f, -223 }, final = { -50, 52.8f, -100 }, radius, height, 60);
+	CreateLineWall(initial = { -75, 52.8f, -223 }, final = { -75, 52.8f, -100 }, radius, height, 60);
+	CreateLineWall(initial = { -150, 52.8f, -258 }, final = { -150, 52.8f, -100 }, radius, height, 80);
 
 
 
@@ -55,8 +61,8 @@ bool ModuleSceneIntro::Start()
 	primitives.PushBack(ground2);
 
 	Cube* ground3 = new Cube();
-	ground3->size = { 350, 2, 300 };
-	ground3->SetPos(-25, 50, -200);
+	ground3->size = { 200, 2, 300 };
+	ground3->SetPos(50, 50, -200);
 	ground3->color = Blue;
 	App->physics->AddBody(*ground3, 0);
 	primitives.PushBack(ground3);
