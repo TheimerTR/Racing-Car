@@ -22,6 +22,7 @@ bool ModulePlayer::Start()
 
 	time = new Timer();
 	TimWait = new Timer();
+	TimerLose = new Timer();
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3.5,3.0, 11);//Hitbox
@@ -127,6 +128,8 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 60, 120);
 
 	vehicle->SetinitiPos();
+	vehicle->ResetCar();
+	TimerLose->Start();
 
 	return true;
 }
@@ -142,6 +145,20 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	timeL = TimerLose->ReadCar();
+
+	LOG("TIME LEFT: %d", timeL);
+
+	if (timeL >= 90) {
+		LOG("YOU LOSE");
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
+		vehicle->ResetCar();
+		TimerLose->Start();
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		vehicle->body->setLinearVelocity({ 0,0,0 });
@@ -535,6 +552,22 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 	
+
+	if (SlowArea) 
+	{
+		acceleration = acceleration / 2;
+	}
+	if (win) 
+	{
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
+		vehicle->ResetCar();
+		TimerLose->Start();
+		
+		win = false;
+	}
 	
 	//Aqui supongo que habria que calcular el drag
 	int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
@@ -546,7 +579,6 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
 
 	vehicle->Render();
-
 
 
 	char title[100];
@@ -577,11 +609,16 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		
 		break;
 	case 2:
-		LOG("Collision con cubo Goal");	//pbodyGoal
+		LOG("WIN");	//pbodyGoal
 		win = true;
 		break;
 	case 3:
-		LOG("Collision con cubo goal2");	//pbodyGoal2
+		LOG("SLOW");	//pbodyGoal2
+		SlowArea = true;
+		break;
+	case 4:
+		LOG("OUT SLOW");	//pbodyGoal2
+		SlowArea = false;
 		break;
 	default:
 		break;

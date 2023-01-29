@@ -34,8 +34,10 @@ public:
 
 	Uint32 timer = 0;
 	Uint32 tW = 0;
+	Uint32 timeL = 0;
 	Timer* time;
 	Timer* TimWait;
+	Timer* TimerLose;
 	bool tb = false;
 	bool wait = false;
 	bool All = false;
@@ -61,6 +63,6 @@ public:
 	ModulePhysics3D* worldPhys;
 	btRigidBody* body = nullptr;
 
-
 	bool win;
+	bool SlowArea = false;
 };

@@ -58,6 +58,8 @@ public:
 
 	PhysBody3D* pbodyGoal;
 	PhysBody3D* pbodyGoal2;
+	PhysBody3D* pbodyGoal3;
+	PhysBody3D* pbodyGoal4;
 
 private:
 };
