@@ -287,10 +287,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		pbodyA->PushSlider(vec3(0, 200000, 0));
-	}
+	}*/
 
 	pbodyA->SetTransform(pbodyA->body->getCenterOfMassTransform().getOrigin());
 	return UPDATE_CONTINUE;

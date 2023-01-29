@@ -61,8 +61,10 @@ public:
 	PhysBody3D* pbodyGoal3;
 	PhysBody3D* pbodyGoal4;
 
-private:
 
 	uint victory;
 	uint defeat;
+
+private:
+
 };

@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModuleSceneIntro.h"
 
 #include "ModuleSceneIntro.h"
 
@@ -153,8 +154,10 @@ update_status ModulePlayer::Update(float dt)
 
 		LOG("TIME LEFT: %d", timeL);
 
-		if (timeL >= 90) {
+		if (timeL >= 90 || App->input->GetKey(SDL_SCANCODE_F3)== KEY_DOWN) {
 			LOG("YOU LOSE");
+			App->audio->PlayFx(App->scene_intro->defeat);
+			fxwin = false;
 			vehicle->body->setLinearVelocity({ 0,0,0 });
 			vehicle->body->setAngularVelocity({ 0,0,0 });
 			acceleration = 0;
@@ -163,8 +166,13 @@ update_status ModulePlayer::Update(float dt)
 			TimerLose->Start();
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+			win = true;
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
+			fxwin = false;
 			vehicle->body->setLinearVelocity({ 0,0,0 });
 			vehicle->body->setAngularVelocity({ 0,0,0 });
 			acceleration = 0;
@@ -576,7 +584,7 @@ update_status ModulePlayer::Update(float dt)
 		int posX = vehicle->GetPosition().x();
 		int posY = vehicle->GetPosition().y();
 		int posZ = vehicle->GetPosition().z();
-		sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
+		sprintf_s(title, "%.1f Km/h  Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)  Time: %d", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ, timeL);
 		App->window->SetTitle(title);
 
 		if (posY <= 0)
@@ -590,7 +598,23 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else
 	{
+		if (!fxwin) {
+			App->audio->PlayFx(App->scene_intro->victory, 0);
+			fxwin = true;
+		}
+
 		App->window->SetTitle("You won!");
+
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			fxwin = false;
+			vehicle->body->setLinearVelocity({ 0,0,0 });
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+			acceleration = 0;
+			brake = BRAKE_POWER;
+			vehicle->ResetCar();
+			win = false;
+		}
 	}
 
 	return UPDATE_CONTINUE;
