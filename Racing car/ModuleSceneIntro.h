@@ -46,4 +46,10 @@ public:
 	PhysMotor3D* right_wheel;
 
 	p2DynArray<Primitive*> primitives;
+
+
+	PhysBody3D* pbodyA;
+	PhysBody3D* pbodyB;
+	PhysBody3D* pbodyC;
+	PhysBody3D* pbodyD;
 };
