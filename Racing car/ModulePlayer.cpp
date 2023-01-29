@@ -561,11 +561,13 @@ update_status ModulePlayer::Update(float dt)
 		int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
 		float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
 		float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
-		vehicle->ApplyEngineForce(acceleration - drag);
+		float dragSuelo = direction * (car.mass * 10 * 0, 25); //DragSuelo
+		//SlowArea = true;
+		vehicle->ApplyEngineForce(acceleration - drag - direction * SlowArea);
 		vehicle->Turn(turn);
 		vehicle->Brake(brake);
 		vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
-
+		
 		vehicle->Render();
 
 
