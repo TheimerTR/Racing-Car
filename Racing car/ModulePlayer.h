@@ -63,7 +63,7 @@ public:
 	ModulePhysics3D* worldPhys;
 	btRigidBody* body = nullptr;
 
-	bool win;
+	bool win, lose;
 	bool SlowArea = false;
 	bool fxwin = false;
 };
