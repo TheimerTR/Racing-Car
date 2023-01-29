@@ -127,13 +127,13 @@ update_status ModulePhysics3D::Update(float dt)
 			item = item->next;
 		}
 
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-			Sphere s(1);
-			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-			float force = 30.0f;
-			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-		}
+		//if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		//{
+		//	Sphere s(1);
+		//	s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		//	float force = 30.0f;
+		//	AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
+		//}
 	}
 
 	return UPDATE_CONTINUE;
@@ -299,7 +299,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	body->setContactProcessingThreshold(BT_LARGE_FLOAT);
-	body->setActivationState(DISABLE_DEACTIVATION);
+	body->setActivationState(DISABLE_DEACTIVATION); 
 
 	world->addRigidBody(body);
 
@@ -328,6 +328,8 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
+
+	body->setUserPointer(pvehicle);
 
 	return pvehicle;
 }

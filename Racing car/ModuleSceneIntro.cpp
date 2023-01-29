@@ -150,6 +150,16 @@ bool ModuleSceneIntro::Start()
 	pbodyC = App->physics->AddBody(*bodyC, 1000);
 	primitives.PushBack(bodyC);
 
+	cubeSensor.SetPos(0, 10, 0);
+	cubeSensor.size = { 0.25,0.25,0.25 };
+	cubeSensor.color = White;
+	sensor = App->physics->AddBody(cubeSensor, 0);
+
+	sensor->collision_listeners.add(this);
+	sensor->SetAsSensor(true);
+	sensor->body->setCollisionFlags(sensor->body->getCollisionFlags() | btCollisionObject::CO_GHOST_OBJECT);
+
+	sensor->SetPos(0, 10, 0);
 
 	//Cube* bodyD;
 	//bodyD = new Cube();
@@ -194,10 +204,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		pbodyA->PushSlider(vec3(0, 200000, 0));
-
 	}
 
-
+	pbodyA->SetTransform(pbodyA->body->getCenterOfMassTransform().getOrigin());
 	return UPDATE_CONTINUE;
 }
 

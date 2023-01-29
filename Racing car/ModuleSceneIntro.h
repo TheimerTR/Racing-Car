@@ -52,4 +52,7 @@ public:
 	PhysBody3D* pbodyB;
 	PhysBody3D* pbodyC;
 	PhysBody3D* pbodyD;
+
+	Cube cubeSensor;
+	PhysBody3D* sensor;
 };
