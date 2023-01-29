@@ -367,7 +367,14 @@ update_status ModulePlayer::Update(float dt)
 			}
 			else
 			{
-				acceleration = (acceleration + (timer * 2)) / (car.mass * 0.0035);
+				if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) 
+				{
+					acceleration = (acceleration + (timer * 10)) / (car.mass * 0.0035);
+				}
+				else
+				{
+					acceleration = (acceleration + (timer * 2)) / (car.mass * 0.0035);
+				}
 			}
 		}
 
@@ -399,7 +406,14 @@ update_status ModulePlayer::Update(float dt)
 			}
 			else
 			{
-				acceleration = (acceleration - timer) / (car.mass * 0.0035);
+				if ((App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT))
+				{
+					acceleration = (acceleration + (timer * 4)) / (car.mass * 0.0035);
+				}
+				else
+				{
+					acceleration = (acceleration - timer) / (car.mass * 0.0035);
+				}
 			}
 		}
 
