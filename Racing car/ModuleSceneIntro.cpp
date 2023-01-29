@@ -123,7 +123,7 @@ bool ModuleSceneIntro::Start()
 	Cube* bodyB;
 	bodyB = new Cube();
 	bodyB->size = { 12.3, 0.8, 0.8 };
-	bodyB->SetPos(0, 60, 20);
+	bodyB->SetPos(0, 58.6, 20);
 	pbodyB = App->physics->AddBody(*bodyB, 0);
 	primitives.PushBack(bodyB);
 
@@ -146,24 +146,24 @@ bool ModuleSceneIntro::Start()
 	primitives.PushBack(bodyC);
 
 
-	Cube* bodyD;
-	bodyD = new Cube();
-	bodyD->size = { 12.3, 0.8, 0.8 };
-	bodyD->SetPos(20, 60, 20);
-	pbodyD = App->physics->AddBody(*bodyD, 0);
-	primitives.PushBack(bodyD);
+	//Cube* bodyD;
+	//bodyD = new Cube();
+	//bodyD->size = { 12.3, 0.8, 0.8 };
+	//bodyD->SetPos(20, 60, 20);
+	//pbodyD = App->physics->AddBody(*bodyD, 0);
+	//primitives.PushBack(bodyD);
 
-	btTransform frameInC;
-	frameInC.getBasis().setEulerZYX(0, 0, M_PI / 2);
-	frameInC.setOrigin(btVector3(0, 0, 0));
+	//btTransform frameInC;
+	//frameInC.getBasis().setEulerZYX(0, 0, M_PI / 2);
+	//frameInC.setOrigin(btVector3(0, 0, 0));
 
-	btTransform frameInD;
-	frameInD.getBasis().setEulerZYX(0, 0, M_PI / 2);
-	frameInD.setOrigin(btVector3(0, 0, 0));
+	//btTransform frameInD;
+	//frameInD.getBasis().setEulerZYX(0, 0, M_PI / 2);
+	//frameInD.setOrigin(btVector3(0, 0, 0));
 
 
-	App->physics->AddConstraintSlider(*pbodyC, *pbodyD, frameInC, frameInD);
-		
+	//App->physics->AddConstraintSlider(*pbodyC, *pbodyD, frameInC, frameInD);
+	//	
 	return ret;
 }
 
