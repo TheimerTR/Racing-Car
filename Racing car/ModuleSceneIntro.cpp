@@ -66,13 +66,47 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*ground3, 0);
 	primitives.PushBack(ground3);
 
-	Cube* cube = new Cube(); 
-	cube->size = { 10, 2, 30 }; 
-	cube->SetPos(170, 55.f, -10); 
-	cube->SetRotation(20, vec3(1, 0, 0)); 
-	App->physics->AddBody(*cube, 0);
+	Cube* ground4 = new Cube();
+	ground4->size = { 250, 2, 130 };
+	ground4->SetPos(-150, 50, -280);
+	ground4->color = Purple;
+	App->physics->AddBody(*ground4, 0);
+	primitives.PushBack(ground4);
 
-	primitives.PushBack(cube); 
+	Cube* ground5 = new Cube();
+	ground5->size = { 300, 2, 130 };
+	ground5->SetPos(-60, 37, -150);
+	ground5->color = White;
+	App->physics->AddBody(*ground5, 0);
+	primitives.PushBack(ground5);
+
+	Cube* ground6 = new Cube();
+	ground6->size = { 100, 2, 250 };
+	ground6->SetPos(-200, 50, -150);
+	ground6->color = Purple;
+	App->physics->AddBody(*ground6, 0);
+	primitives.PushBack(ground6);
+
+	Cube* ramp1 = new Cube(); 
+	ramp1->size = { 10, 2, 30 }; 
+	ramp1->SetPos(170, 55.f, -10); 
+	ramp1->SetRotation(20, vec3(1, 0, 0)); 
+	App->physics->AddBody(*ramp1, 0);
+	primitives.PushBack(ramp1); 
+
+	Cube* ramp2 = new Cube();
+	ramp2->size = { 25, 2, 40 };
+	ramp2->SetPos(-62, 43.5f, -200);
+	ramp2->SetRotation(20, vec3(1, 0, 0));
+	App->physics->AddBody(*ramp2, 0);
+	primitives.PushBack(ramp2);
+
+	Cube* ramp3 = new Cube();
+	ramp3->size = { 40, 2, 25 };
+	ramp3->SetPos(-135, 43.5f, -90);
+	ramp3->SetRotation(-20, vec3(0, 0, 1));
+	App->physics->AddBody(*ramp3, 0);
+	primitives.PushBack(ramp3);
 
 
 	//constraint slider
