@@ -154,8 +154,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
-
-		pbodyA->Push(0, -5000, 0);
+		pbodyA->PushSlider(vec3(0, 200000, 0));
 
 	}
 

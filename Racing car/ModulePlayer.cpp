@@ -427,7 +427,7 @@ update_status ModulePlayer::Update(float dt)
 			}
 			if (!TupD)
 			{
-				if (acceleration >= 2)
+				if (acceleration > 0)
 				{
 					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
 				}
@@ -444,7 +444,7 @@ update_status ModulePlayer::Update(float dt)
 			}
 			if (!TdowD)
 			{
-				if (acceleration <= -2)
+				if (acceleration < 0)
 				{
 					acceleration = acceleration + timer * 2;
 				}

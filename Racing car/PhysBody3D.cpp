@@ -18,6 +18,11 @@ void PhysBody3D::Push(float x, float y, float z)
 {
 	body->applyCentralImpulse(btVector3(x, y, z));
 }
+void PhysBody3D::PushSlider(vec3 force)
+{
+	body->activate();
+	body->applyCentralForce(btVector3(force.x, force.y, force.z));
+}
 
 // ---------------------------------------------------------
 void PhysBody3D::GetTransform(float* matrix) const
