@@ -77,5 +77,4 @@ public:
 
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
-	PhysBody3D* body;
 };

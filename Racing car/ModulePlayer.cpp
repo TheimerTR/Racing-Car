@@ -19,6 +19,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	time = new Timer();
+	TimWait = new Timer();
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3.5,3.0, 11);//Hitbox
@@ -139,6 +140,10 @@ update_status ModulePlayer::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
 		vehicle->ResetCar();
 	}
 
@@ -303,19 +308,47 @@ update_status ModulePlayer::Update(float dt)
 				LOG("GRAVITY: -10");
 			}
 		}
+
+		if (wait) 
+		{
+			TimWait->Start();
+		}
+
 		if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1) 
 		{
-
+			All = true;
 		}
 		else if (wheel0 != 1 && wheel2 != 1)
 		{
+			if (!All)
+			{
+				wait = true;
+				tW = TimWait->ReadCar();
+				All = false;
 
-			vehicle->ResetInitPos();
+				if (tW >= 2)
+				{
+					vehicle->ResetInitPos();
+					TimWait->Stop();
+					wait = false;
+				}
+			}
 		}
 		else if (wheel1 != 1 && wheel3 != 1)
 		{
+			if (!All)
+			{
+				wait = true;
+				tW = TimWait->ReadCar();
+				All = false;
 
-			vehicle->ResetInitPos();
+				if (tW >= 2)
+				{
+					vehicle->ResetInitPos();
+					TimWait->Stop();
+					wait = false;
+				}
+			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
@@ -484,18 +517,35 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 	
+	
 	//Aqui supongo que habria que calcular el drag
 	int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
-	float drag= direction*((vehicle->GetKmh()/3.6)* (vehicle->GetKmh() / 3.6)/2) * (1.21) * (0.075) * (3.5*3); //v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
-	vehicle->ApplyEngineForce(acceleration-drag);
+	float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
+	float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
+	vehicle->ApplyEngineForce(acceleration - drag);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
+	vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
 
 	vehicle->Render();
 
-	char title[80];
-	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f", vehicle->GetKmh(),acceleration,drag);
+
+
+	char title[100];
+	int posX = vehicle->GetPosition().x();
+	int posY = vehicle->GetPosition().y();
+	int posZ = vehicle->GetPosition().z();
+	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
 	App->window->SetTitle(title);
+
+	if (posY <= 0)
+	{
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
+		vehicle->ResetCar();
+	}
 
 	return UPDATE_CONTINUE;
 }
