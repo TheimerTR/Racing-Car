@@ -31,8 +31,12 @@ public:
 	float brake = 0;
 
 	Uint32 timer = 0;
+	Uint32 tW = 0;
 	Timer* time;
+	Timer* TimWait;
 	bool tb = false;
+	bool wait = false;
+	bool All = false;
 
 	bool TupD = false;
 	bool TupU = false;

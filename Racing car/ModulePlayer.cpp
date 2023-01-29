@@ -19,6 +19,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	time = new Timer();
+	TimWait = new Timer();
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3.5,3.0, 11);//Hitbox
@@ -303,19 +304,48 @@ update_status ModulePlayer::Update(float dt)
 				LOG("GRAVITY: -10");
 			}
 		}
+
+		if (wait) 
+		{
+			TimWait->Start();
+		}
+
 		if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1) 
 		{
-
+			All = true;
 		}
 		else if (wheel0 != 1 && wheel2 != 1)
 		{
+			if (!All)
+			{
+				wait = true;
+				tW = TimWait->ReadCar();
+				All = false;
 
-			vehicle->ResetInitPos();
+				if (tW >= 2)
+				{
+					vehicle->ResetInitPos();
+					TimWait->Stop();
+					wait = false;
+				}
+			}
 		}
 		else if (wheel1 != 1 && wheel3 != 1)
 		{
+			if (!All)
+			{
+				wait = true;
+				tW = TimWait->ReadCar();
+				All = false;
 
-			vehicle->ResetInitPos();
+				if (tW >= 2)
+				{
+					LOG("2");
+					vehicle->ResetInitPos();
+					TimWait->Stop();
+					wait = false;
+				}
+			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
