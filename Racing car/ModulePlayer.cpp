@@ -140,6 +140,10 @@ update_status ModulePlayer::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
 		vehicle->ResetCar();
 	}
 
@@ -534,10 +538,12 @@ update_status ModulePlayer::Update(float dt)
 	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
 	App->window->SetTitle(title);
 
-	LOG("Y CAR POS: %d", posY);
-
 	if (posY <= 0)
 	{
+		vehicle->body->setLinearVelocity({ 0,0,0 });
+		vehicle->body->setAngularVelocity({ 0,0,0 });
+		acceleration = 0;
+		brake = BRAKE_POWER;
 		vehicle->ResetCar();
 	}
 

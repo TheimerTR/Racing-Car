@@ -244,6 +244,7 @@ void PhysVehicle3D::ResetCar()
 	M[13] = p.y;
 	M[14] = p.z;
 
+
 	SetTransform(M);
 	SetPos(p.x,p.y,p.z);
 }

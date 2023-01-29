@@ -28,9 +28,9 @@ public:
 	btVector3 GetinitiPos();
 
 private:
-	btRigidBody* body = nullptr;
 
 public:
+	btRigidBody* body = nullptr;
 	p2List<Module*> collision_listeners;
 	btVector3 INITposition;
 };
