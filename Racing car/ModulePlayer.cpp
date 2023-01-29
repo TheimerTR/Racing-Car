@@ -514,17 +514,25 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 	
+	
 	//Aqui supongo que habria que calcular el drag
 	int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
-	float drag= direction*((vehicle->GetKmh()/3.6)* (vehicle->GetKmh() / 3.6)/2) * (1.21) * (0.075) * (3.5*3); //v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
-	vehicle->ApplyEngineForce(acceleration-drag);
+	float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
+	float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
+	vehicle->ApplyEngineForce(acceleration - drag);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
+	vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
 
 	vehicle->Render();
 
-	char title[80];
-	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f", vehicle->GetKmh(),acceleration,drag);
+
+
+	char title[100];
+	int posX = vehicle->GetPosition().x();
+	int posY = vehicle->GetPosition().y();
+	int posZ = vehicle->GetPosition().z();
+	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
