@@ -134,6 +134,7 @@ bool ModulePlayer::Start()
 
 
 	win = false;
+	lose = false;
 	return true;
 }
 
@@ -148,7 +149,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	if (!win)
+	if (!win && !lose)
 	{
 		timeL = TimerLose->ReadCar();
 
@@ -157,27 +158,12 @@ update_status ModulePlayer::Update(float dt)
 		if (timeL >= 90 || App->input->GetKey(SDL_SCANCODE_F3)== KEY_DOWN) {
 			LOG("YOU LOSE");
 			App->audio->PlayFx(App->scene_intro->defeat);
-			fxwin = false;
-			vehicle->body->setLinearVelocity({ 0,0,0 });
-			vehicle->body->setAngularVelocity({ 0,0,0 });
-			acceleration = 0;
-			brake = BRAKE_POWER;
-			vehicle->ResetCar();
-			TimerLose->Start();
+			
+			lose = true;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
 			win = true;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		{
-			fxwin = false;
-			vehicle->body->setLinearVelocity({ 0,0,0 });
-			vehicle->body->setAngularVelocity({ 0,0,0 });
-			acceleration = 0;
-			brake = BRAKE_POWER;
-			vehicle->ResetCar();
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -200,7 +186,6 @@ update_status ModulePlayer::Update(float dt)
 
 		if (PhysEnabled)
 		{
-
 			wheel0 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_groundObject;
 			wheel1 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_groundObject;
 			wheel2 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_groundObject;
@@ -570,7 +555,8 @@ update_status ModulePlayer::Update(float dt)
 		float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
 		float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
 		float dragSuelo = direction * (car.mass * 10 * 0, 25); //DragSuelo
-		//SlowArea = true;
+		
+															   //SlowArea = true;
 		vehicle->ApplyEngineForce(acceleration - drag - direction * SlowArea);
 		vehicle->Turn(turn);
 		vehicle->Brake(brake);
@@ -598,12 +584,13 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else
 	{
+		if (win) { App->window->SetTitle("You won!  || Press R to play again"); }
+		if (lose) { App->window->SetTitle("You lost!  || Press R to play again"); }
+
 		if (!fxwin) {
 			App->audio->PlayFx(App->scene_intro->victory, 0);
 			fxwin = true;
 		}
-
-		App->window->SetTitle("You won!");
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
@@ -614,6 +601,7 @@ update_status ModulePlayer::Update(float dt)
 			brake = BRAKE_POWER;
 			vehicle->ResetCar();
 			win = false;
+			lose = false;
 		}
 	}
 
