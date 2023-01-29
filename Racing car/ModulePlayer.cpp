@@ -131,6 +131,8 @@ bool ModulePlayer::Start()
 	vehicle->ResetCar();
 	TimerLose->Start();
 
+
+	win = false;
 	return true;
 }
 
@@ -145,456 +147,448 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	timeL = TimerLose->ReadCar();
-
-	LOG("TIME LEFT: %d", timeL);
-
-	if (timeL >= 90) {
-		LOG("YOU LOSE");
-		vehicle->body->setLinearVelocity({ 0,0,0 });
-		vehicle->body->setAngularVelocity({ 0,0,0 });
-		acceleration = 0;
-		brake = BRAKE_POWER;
-		vehicle->ResetCar();
-		TimerLose->Start();
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	if (!win)
 	{
-		vehicle->body->setLinearVelocity({ 0,0,0 });
-		vehicle->body->setAngularVelocity({ 0,0,0 });
-		acceleration = 0;
-		brake = BRAKE_POWER;
-		vehicle->ResetCar();
-	}
+		timeL = TimerLose->ReadCar();
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		App->camera->freeCam = !App->camera->freeCam;
-	}
+		LOG("TIME LEFT: %d", timeL);
 
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
-	{
-		PhysEnabled = !PhysEnabled;
-		if (PhysEnabled) 
-		{
-			LOG("Physics: True");
-		}		
-		if (!PhysEnabled) 
-		{
-			LOG("Physics: False");
-		}
-	}
-
-	if (PhysEnabled) 
-	{
-
-		wheel0 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_groundObject;
-		wheel1 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_groundObject;
-		wheel2 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_groundObject;
-		wheel3 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_groundObject;
-
-		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-			mass = !mass;
+		if (timeL >= 90) {
+			LOG("YOU LOSE");
+			vehicle->body->setLinearVelocity({ 0,0,0 });
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+			acceleration = 0;
+			brake = BRAKE_POWER;
+			vehicle->ResetCar();
+			TimerLose->Start();
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
-			grav = !grav;
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			vehicle->body->setLinearVelocity({ 0,0,0 });
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+			acceleration = 0;
+			brake = BRAKE_POWER;
+			vehicle->ResetCar();
 		}
 
-		if (mass == true)
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			App->camera->freeCam = !App->camera->freeCam;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			PhysEnabled = !PhysEnabled;
+			if (PhysEnabled)
 			{
-				car.mass = 100.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
+				LOG("Physics: True");
 			}
-			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+			if (!PhysEnabled)
 			{
-				car.mass = 200.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-			{
-				car.mass = 300.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-			{
-				car.mass = 400.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
-			{
-				car.mass = 500.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
-			{
-				car.mass = 600.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-			{
-				car.mass = 700.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
-			{
-				car.mass = 800.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
-			{
-				car.mass = 900.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
-			}
-			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-			{
-				car.mass = 1000.0f;
-				mass = false;
-				LOG("Mass: %f", car.mass);
+				LOG("Physics: False");
 			}
 		}
 
-		if (grav == true)
+		if (PhysEnabled)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -1.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -1");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -2.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -2");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -3.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -3");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -4.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -4");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -5");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -6.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -6");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -7.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -7");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -8.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -8");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -9.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -9");
-			}
-			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-			{
-				App->physics->world->setGravity(btVector3(0.0f, -10.0f, 0.0f));
-				grav = false;
-				LOG("GRAVITY: -10");
-			}
-		}
 
-		if (wait) 
-		{
-			TimWait->Start();
-		}
+			wheel0 = vehicle->vehicle->getWheelInfo(0).m_raycastInfo.m_groundObject;
+			wheel1 = vehicle->vehicle->getWheelInfo(1).m_raycastInfo.m_groundObject;
+			wheel2 = vehicle->vehicle->getWheelInfo(2).m_raycastInfo.m_groundObject;
+			wheel3 = vehicle->vehicle->getWheelInfo(3).m_raycastInfo.m_groundObject;
 
-		if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1) 
-		{
-			All = true;
-		}
-		else if (wheel0 != 1 && wheel2 != 1)
-		{
-			if (!All)
+			if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+				mass = !mass;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+				grav = !grav;
+			}
+
+			if (mass == true)
 			{
-				wait = true;
-				tW = TimWait->ReadCar();
-				All = false;
-
-				if (tW >= 2)
+				if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 				{
-					vehicle->ResetInitPos();
-					TimWait->Stop();
-					wait = false;
+					car.mass = 100.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+				{
+					car.mass = 200.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+				{
+					car.mass = 300.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+				{
+					car.mass = 400.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+				{
+					car.mass = 500.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+				{
+					car.mass = 600.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+				{
+					car.mass = 700.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+				{
+					car.mass = 800.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+				{
+					car.mass = 900.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
+				}
+				if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+				{
+					car.mass = 1000.0f;
+					mass = false;
+					LOG("Mass: %f", car.mass);
 				}
 			}
-		}
-		else if (wheel1 != 1 && wheel3 != 1)
-		{
-			if (!All)
-			{
-				wait = true;
-				tW = TimWait->ReadCar();
-				All = false;
 
-				if (tW >= 2)
+			if (grav == true)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 				{
-					vehicle->ResetInitPos();
-					TimWait->Stop();
-					wait = false;
+					App->physics->world->setGravity(btVector3(0.0f, -1.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -1");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -2.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -2");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -3.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -3");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -4.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -4");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -5");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -6.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -6");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -7.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -7");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -8.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -8");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -9.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -9");
+				}
+				if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+				{
+					App->physics->world->setGravity(btVector3(0.0f, -10.0f, 0.0f));
+					grav = false;
+					LOG("GRAVITY: -10");
 				}
 			}
-		}
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-			time->Stop();
-			time->Start();
-			TupD = true;
-			TupU = false;
+			if (wait)
+			{
+				TimWait->Start();
+			}
+
+			if (wheel0 != 1 && wheel1 != 1 && wheel2 != 1 && wheel3 != 1)
+			{
+				All = true;
+			}
+			else if (wheel0 != 1 && wheel2 != 1)
+			{
+				if (!All)
+				{
+					wait = true;
+					tW = TimWait->ReadCar();
+					All = false;
+
+					if (tW >= 2)
+					{
+						vehicle->ResetInitPos();
+						TimWait->Stop();
+						wait = false;
+					}
+				}
+			}
+			else if (wheel1 != 1 && wheel3 != 1)
+			{
+				if (!All)
+				{
+					wait = true;
+					tW = TimWait->ReadCar();
+					All = false;
+
+					if (tW >= 2)
+					{
+						vehicle->ResetInitPos();
+						TimWait->Stop();
+						wait = false;
+					}
+				}
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				time->Stop();
+				time->Start();
+				TupD = true;
+				TupU = false;
+			}
+
+			//Cuanto mas tiempo se mantenga pulsado mas acelera
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
+			{
+				if (acceleration >= MAX_ACCELERATION)
+				{
+					acceleration = MAX_ACCELERATION;
+				}
+				else
+				{
+					if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT))
+					{
+						acceleration = (acceleration + (timer * 10)) / (car.mass * 0.0035);
+					}
+					else
+					{
+						acceleration = (acceleration + (timer * 2)) / (car.mass * 0.0035);
+					}
+				}
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			{
+				if (turn < TURN_DEGREES)
+					turn += TURN_DEGREES;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			{
+				if (turn > -TURN_DEGREES)
+					turn -= TURN_DEGREES;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+
+				time->Stop();
+				time->Start();
+				TdowD = true;
+				TdowU = false;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_UP) == KEY_IDLE)
+			{
+				if (acceleration <= -MAX_ACCELERATION)
+				{
+					acceleration = -MAX_ACCELERATION;
+				}
+				else
+				{
+					if ((App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT))
+					{
+						acceleration = (acceleration + (timer * 4)) / (car.mass * 0.0035);
+					}
+					else
+					{
+						acceleration = (acceleration - timer) / (car.mass * 0.0035);
+					}
+				}
+			}
+
+			if (!TdowD)
+			{
+				if (acceleration <= 0)
+				{
+					brake = 6;
+					acceleration = 0;
+					TupU = false;
+				}
+				if (!TupD)
+				{
+					if (acceleration > 0)
+					{
+						acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
+					}
+				}
+			}
+
+			if (!TupD)
+			{
+				if (acceleration >= 0)
+				{
+					brake = 6;
+					acceleration = 0;
+					TdowU = false;
+				}
+				if (!TdowD)
+				{
+					if (acceleration < 0)
+					{
+						acceleration = acceleration + timer * 2;
+					}
+				}
+			}
+
+			if (TupU)
+			{
+				if (acceleration <= 0)
+				{
+					brake = 6;
+					acceleration = 0;
+					TupU = false;
+				}
+
+				acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
+			}
+
+			if (TdowU)
+			{
+				if (acceleration >= 0)
+				{
+					brake = 6;
+					acceleration = 0;
+					TdowU = false;
+				}
+
+				acceleration = acceleration + timer * 2;
+			}
+
+			//LOG("Acceleration: %f", acceleration);
+
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+			{
+				if (acceleration > 0.0f)
+				{
+					TupD = false;
+					time->Start();
+					TupU = true;
+				}
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+			{
+				if (acceleration < 0.0f)
+				{
+					TdowD = false;
+					time->Start();
+					TdowU = true;
+				}
+			}
+
+			if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP) || (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP))
+			{
+				turn = 0;
+			}
+
+			timer = time->ReadCar();
 		}
-		
-		//Cuanto mas tiempo se mantenga pulsado mas acelera
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
+		else
 		{
-			if (acceleration >= MAX_ACCELERATION)
+			turn = acceleration = brake = 0.0f;
+
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			{
 				acceleration = MAX_ACCELERATION;
 			}
-			else
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 			{
-				if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) 
-				{
-					acceleration = (acceleration + (timer * 10)) / (car.mass * 0.0035);
-				}
-				else
-				{
-					acceleration = (acceleration + (timer * 2)) / (car.mass * 0.0035);
-				}
+				if (turn < TURN_DEGREES)
+					turn += TURN_DEGREES;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			{
+				if (turn > -TURN_DEGREES)
+					turn -= TURN_DEGREES;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			{
+				brake = BRAKE_POWER;
 			}
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+
+		//Aqui supongo que habria que calcular el drag
+		int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
+		float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
+		float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
+		vehicle->ApplyEngineForce(acceleration - drag);
+		vehicle->Turn(turn);
+		vehicle->Brake(brake);
+		vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
+
+		vehicle->Render();
+
+
+
+		char title[100];
+		int posX = vehicle->GetPosition().x();
+		int posY = vehicle->GetPosition().y();
+		int posZ = vehicle->GetPosition().z();
+		sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
+		App->window->SetTitle(title);
+
+		if (posY <= 0)
 		{
-			if (turn < TURN_DEGREES)
-				turn += TURN_DEGREES;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
-			if (turn > -TURN_DEGREES)
-				turn -= TURN_DEGREES;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
-
-			time->Stop();
-			time->Start();
-			TdowD = true;
-			TdowU = false;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_UP) == KEY_IDLE)
-		{
-			if (acceleration <= -MAX_ACCELERATION)
-			{
-				acceleration = -MAX_ACCELERATION;
-			}
-			else
-			{
-				if ((App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT))
-				{
-					acceleration = (acceleration + (timer * 4)) / (car.mass * 0.0035);
-				}
-				else
-				{
-					acceleration = (acceleration - timer) / (car.mass * 0.0035);
-				}
-			}
-		}
-
-		if (!TdowD)
-		{
-			if (acceleration <= 0)
-			{
-				brake = 6;
-				acceleration = 0;
-				TupU = false;
-			}
-			if (!TupD)
-			{
-				if (acceleration > 0)
-				{
-					acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
-				}
-			}
-		}
-
-		if (!TupD)
-		{
-			if (acceleration >= 0)
-			{
-				brake = 6;
-				acceleration = 0;
-				TdowU = false;
-			}
-			if (!TdowD)
-			{
-				if (acceleration < 0)
-				{
-					acceleration = acceleration + timer * 2;
-				}
-			}
-		}
-
-		if (TupU)
-		{
-			if (acceleration <= 0)
-			{
-				brake = 6;
-				acceleration = 0;
-				TupU = false;
-			}
-
-			acceleration = (acceleration - (timer * 4)) / (car.mass * 0.0035);
-		}
-
-		if (TdowU)
-		{
-			if (acceleration >= 0)
-			{
-				brake = 6;
-				acceleration = 0;
-				TdowU = false;
-			}
-
-			acceleration = acceleration + timer * 2;
-		}
-
-		//LOG("Acceleration: %f", acceleration);
-
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-		{
-			if (acceleration > 0.0f)
-			{
-				TupD = false;
-				time->Start();
-				TupU = true;
-			}
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-		{
-			if (acceleration < 0.0f)
-			{
-				TdowD = false;
-				time->Start();
-				TdowU = true;
-			}
-		}
-
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP) || (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP))
-		{
-			turn = 0;
-		}
-
-		timer = time->ReadCar();
-	}
-	else 
-	{
-		turn = acceleration = brake = 0.0f;
-
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		{
-			acceleration = MAX_ACCELERATION;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		{
-			if (turn < TURN_DEGREES)
-				turn += TURN_DEGREES;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
-			if (turn > -TURN_DEGREES)
-				turn -= TURN_DEGREES;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		{
+			vehicle->body->setLinearVelocity({ 0,0,0 });
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+			acceleration = 0;
 			brake = BRAKE_POWER;
+			vehicle->ResetCar();
 		}
 	}
-	
-
-	if (SlowArea) 
+	else
 	{
-		acceleration = acceleration / 2;
-	}
-	if (win) 
-	{
-		vehicle->body->setLinearVelocity({ 0,0,0 });
-		vehicle->body->setAngularVelocity({ 0,0,0 });
-		acceleration = 0;
-		brake = BRAKE_POWER;
-		vehicle->ResetCar();
-		TimerLose->Start();
-		
-		win = false;
-	}
-	
-	//Aqui supongo que habria que calcular el drag
-	int direction = vehicle->GetKmh() / abs(vehicle->GetKmh());
-	float drag = direction * ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.075) * (3.5 * 3);//v en m/s al cuadrado x densidad aire kg/m3 x coeficiente FUYM x area frontal
-	float lift = ((vehicle->GetKmh() / 3.6) * (vehicle->GetKmh() / 3.6) / 2) * (1.21) * (0.00075) * (3.5 * 11 / 2); //Velocidad m/s2 x 1/2 x densidad aire kg/m3 x coeficiente FUYM x area inferior/2 (la mitad de la parte de abajo del coche genera lift)
-	vehicle->ApplyEngineForce(acceleration - drag);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
-	vehicle->Push(0, lift / car.mass, 0); //Fuerza vertical del coche
-
-	vehicle->Render();
-
-
-	char title[100];
-	int posX = vehicle->GetPosition().x();
-	int posY = vehicle->GetPosition().y();
-	int posZ = vehicle->GetPosition().z();
-	sprintf_s(title, "%.1f Km/h   Acceleracion es %.1f  Drag es %.1f Lift es %.1f X,Y,Z (%d,%d,%d)", vehicle->GetKmh(), acceleration, drag, lift, posX, posY, posZ);
-	App->window->SetTitle(title);
-
-	if (posY <= 0)
-	{
-		vehicle->body->setLinearVelocity({ 0,0,0 });
-		vehicle->body->setAngularVelocity({ 0,0,0 });
-		acceleration = 0;
-		brake = BRAKE_POWER;
-		vehicle->ResetCar();
+		App->window->SetTitle("You won!");
 	}
 
 	return UPDATE_CONTINUE;

@@ -101,21 +101,21 @@ bool ModuleSceneIntro::Start()
 
 	Cube* flag = new Cube();
 	flag->size = { 1, 10, 30 };
-	flag->SetPos(-25, 70, 115);
+	flag->SetPos(0, 70, 115);
 	flag->color = White;
 	App->physics->AddBody(*flag, 0);
 	primitives.PushBack(flag);
 
 	Cube* stick = new Cube();
 	stick->size = { 0.5f, 40, 0.5f };
-	stick->SetPos(-25, 50, 129);
+	stick->SetPos(0, 50, 129);
 	stick->color = White;
 	App->physics->AddBody(*stick, 0);
 	primitives.PushBack(stick);
 
 	Cube* stick2 = new Cube();
 	stick2->size = { 0.5f, 40, 0.5f };
-	stick2->SetPos(-25, 50, 101);
+	stick2->SetPos(0, 50, 101);
 	stick2->color = White;
 	App->physics->AddBody(*stick2, 0);
 	primitives.PushBack(stick2);
@@ -211,9 +211,9 @@ bool ModuleSceneIntro::Start()
 
 	Cube* bodyGoal;
 	bodyGoal = new Cube();
-	bodyGoal->size = { 20, 20, 20 };
+	bodyGoal->size = { 2, 10, 30 };
 	bodyGoal->color = Blue;
-	bodyGoal->SetPos(0, 60, 50);
+	bodyGoal->SetPos(-50, 50, 115);
 	pbodyGoal = App->physics->AddBody(*bodyGoal, 1000);
 
 
@@ -226,22 +226,22 @@ bool ModuleSceneIntro::Start()
 	Cube* bodyGoal2;
 	bodyGoal2 = new Cube();
 	bodyGoal2->size = { 20, 10, 20 };
-	bodyGoal2->color = Blue;
+	bodyGoal2->color = Purple;
 	bodyGoal2->SetPos(25, 55, 115);
 	pbodyGoal2 = App->physics->AddBody(*bodyGoal, 1000);
 
 	pbodyGoal2->id = 3;
 
-	Cube* bodyGoal3;
+	/*Cube* bodyGoal3;
 	bodyGoal3 = new Cube();
 	bodyGoal3->size = { 2, 10, 20 };
 	bodyGoal3->color = Blue;
 	bodyGoal3->SetPos(-25, 55, 50);
 	pbodyGoal3 = App->physics->AddBody(*bodyGoal, 1000);
 
-	pbodyGoal3->id = 4;
+	pbodyGoal3->id = 4;*/
 
-	Cube* bodyGoal4;
+	/*Cube* bodyGoal4;
 	bodyGoal4 = new Cube();
 	bodyGoal4->size = { 2, 10, 20 };
 	bodyGoal4->color = Blue;
@@ -249,7 +249,7 @@ bool ModuleSceneIntro::Start()
 	pbodyGoal4 = App->physics->AddBody(*bodyGoal4, 1000);
 
 
-	pbodyGoal3->id = 5;
+	pbodyGoal4->id = 5;*/
 
 	//pbodyGoal2->collision_listeners.add(this);
 	primitives.PushBack(bodyGoal2);
