@@ -181,6 +181,32 @@ bool ModuleSceneIntro::Start()
 	//
 
 
+	Cube* bodyGoal;
+	bodyGoal = new Cube();
+	bodyGoal->size = { 20, 20, 20 };
+	bodyGoal->color = Blue;
+	bodyGoal->SetPos(0, 60, 50);
+	pbodyGoal = App->physics->AddBody(*bodyGoal, 1000);
+
+
+	pbodyGoal->id = 2;
+	pbodyGoal->collision_listeners.add(this);
+	primitives.PushBack(bodyGoal);
+
+
+	// cubo que colisiona con cubo pa detectar onCollision
+	Cube* bodyGoal2;
+	bodyGoal2 = new Cube();
+	bodyGoal2->size = { 20, 20, 20 };
+	bodyGoal2->color = Blue;
+	bodyGoal2->SetPos(0, 79, 50);
+	pbodyGoal2 = App->physics->AddBody(*bodyGoal, 1000);
+
+
+	pbodyGoal2->id = 3;
+	//pbodyGoal2->collision_listeners.add(this);
+	primitives.PushBack(bodyGoal2);
+
 	return ret;
 }
 
@@ -218,7 +244,20 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	
+	switch (body2->id)
+	{
+	case 1:	// este era el coche que no va :')
+		LOG("111 colisionnn");
+		break;
+	case 2:
+		LOG("colisionnn");
+		break;
+	case 3:
+		LOG("con 3 colisionnn");
+		break;
+	default:
+		break;
+	}
 }
 
 void ModuleSceneIntro::CreateLineWall(vec3 initial, vec3 final, float radius, float height, int pilarnum) {

@@ -55,4 +55,7 @@ public:
 
 	Cube cubeSensor;
 	PhysBody3D* sensor;
+
+	PhysBody3D* pbodyGoal;
+	PhysBody3D* pbodyGoal2;
 };

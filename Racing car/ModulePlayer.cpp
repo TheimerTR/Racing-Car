@@ -120,6 +120,7 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car); 
+	vehicle->id = 1;
 	vehicle->collision_listeners.add(this);
 	vehicle->SetPos(0, 60, 120);
 

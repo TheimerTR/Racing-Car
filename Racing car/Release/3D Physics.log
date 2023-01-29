@@ -1,33 +1,35 @@
 ﻿  ModulePlayer.cpp
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(26,35): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(28,33): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(29,33): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(30,33): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(31,33): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(32,35): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(34,34): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(37,36): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(38,35): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(39,36): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(40,37): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(42,38): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(43,41): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(44,42): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(45,38): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(46,37): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(367,49): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(399,43): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(415,50): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(446,48): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(519,16): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(520,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(521,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(532,11): warning C4244: 'inicializando': conversión de 'const btScalar' a 'int'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(533,11): warning C4244: 'inicializando': conversión de 'const btScalar' a 'int'; posible pérdida de datos
-C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\ModulePlayer.cpp(534,11): warning C4244: 'inicializando': conversión de 'const btScalar' a 'int'; posible pérdida de datos
-  Generando código
-  2 of 447 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(26,35): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(28,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(29,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(30,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(31,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(32,35): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(34,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(37,36): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(38,35): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(39,36): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(40,37): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(42,38): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(43,41): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(44,42): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(45,38): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(46,37): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(374,51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(378,50): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(413,50): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(417,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(434,50): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(465,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(538,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(539,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(540,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(551,11): warning C4244: 'initializing': conversion from 'const btScalar' to 'int', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(552,11): warning C4244: 'initializing': conversion from 'const btScalar' to 'int', possible loss of data
+C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\ModulePlayer.cpp(553,11): warning C4244: 'initializing': conversion from 'const btScalar' to 'int', possible loss of data
+  Generating code
+  3 of 457 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  3D Physics.vcxproj -> C:\Users\Eric\OneDrive\Documentos\GitHub\Racing-Car\Racing car\Release\3D Physics - class5.exe
+  Finished generating code
+  3D Physics.vcxproj -> C:\Users\Usuario\Documents\CITM\Projects\Racing-Car\Racing car\Release\3D Physics - class5.exe

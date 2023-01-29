@@ -41,6 +41,7 @@ public:
 	btCollisionShape* colShape;
 	btDefaultMotionState* motionState;
 
+	int id;
 };
 
 #endif // __PhysBody3D_H__
