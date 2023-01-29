@@ -92,6 +92,34 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*ground6, 0);
 	primitives.PushBack(ground6);
 
+	Cube* wall = new Cube();
+	wall->size = { 2, 10, 30 };
+	wall->SetPos(-15, 50, 115);
+	wall->color = Red;
+	App->physics->AddBody(*wall, 0);
+	primitives.PushBack(wall);
+
+	Cube* flag = new Cube();
+	flag->size = { 1, 10, 30 };
+	flag->SetPos(20, 70, 115);
+	flag->color = White;
+	App->physics->AddBody(*flag, 0);
+	primitives.PushBack(flag);
+
+	Cube* stick = new Cube();
+	stick->size = { 0.5f, 40, 0.5f };
+	stick->SetPos(20, 50, 129);
+	stick->color = White;
+	App->physics->AddBody(*stick, 0);
+	primitives.PushBack(stick);
+
+	Cube* stick2 = new Cube();
+	stick2->size = { 0.5f, 40, 0.5f };
+	stick2->SetPos(20, 50, 101);
+	stick2->color = White;
+	App->physics->AddBody(*stick2, 0);
+	primitives.PushBack(stick2);
+
 	Cube* ramp1 = new Cube(); 
 	ramp1->size = { 10, 2, 30 }; 
 	ramp1->SetPos(170, 55.f, -10); 
