@@ -60,4 +60,7 @@ public:
 	VehicleInfo car;
 	ModulePhysics3D* worldPhys;
 	btRigidBody* body = nullptr;
+
+
+	bool win;
 };

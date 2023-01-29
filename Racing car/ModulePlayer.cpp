@@ -570,6 +570,22 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	switch (body2->id)
+	{
+	case 1:
+		LOG("Coche brum brum");
+		
+		break;
+	case 2:
+		LOG("Collision con cubo Goal");	//pbodyGoal
+		win = true;
+		break;
+	case 3:
+		LOG("Collision con cubo goal2");	//pbodyGoal2
+		break;
+	default:
+		break;
+	}
 }
 
 

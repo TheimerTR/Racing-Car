@@ -190,7 +190,7 @@ bool ModuleSceneIntro::Start()
 
 
 	pbodyGoal->id = 2;
-	pbodyGoal->collision_listeners.add(this);
+	//pbodyGoal->collision_listeners.add(this);
 	primitives.PushBack(bodyGoal);
 
 
@@ -228,7 +228,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++) {
 		
 		primitives[n]->Update();
-
 		primitives[n]->Render();
 	}
 
@@ -244,21 +243,6 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	switch (body2->id)
-	{
-	case 1:
-		LOG("colision coche con cubo");
-		win = true;
-		break;
-	case 2:
-		LOG("colisionnn");
-		break;
-	case 3:
-		LOG("con 3 colisionnn");
-		break;
-	default:
-		break;
-	}
 }
 
 void ModuleSceneIntro::CreateLineWall(vec3 initial, vec3 final, float radius, float height, int pilarnum) {
