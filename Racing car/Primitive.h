@@ -2,7 +2,7 @@
 #pragma once
 #include "glmath.h"
 #include "Color.h"
-
+#include "PhysBody3D.h"
 enum PrimitiveTypes
 {
 	Primitive_Point,
@@ -19,6 +19,7 @@ public:
 
 	Primitive();
 
+	void Update();
 	virtual void	Render() const;
 	virtual void	InnerRender() const;
 	void			SetPos(float x, float y, float z);
@@ -31,6 +32,7 @@ public:
 	Color color;
 	mat4x4 transform;
 	bool axis,wire;
+	PhysBody3D body;
 
 protected:
 	PrimitiveTypes type;

@@ -3,6 +3,14 @@
 #include "Bullet/include/btBulletDynamicsCommon.h"
 #include <cmath>
 
+PhysBody3D::PhysBody3D()
+	: body(nullptr)
+	, colShape(nullptr)
+	, motionState(nullptr)
+	, collision_listeners()
+{
+
+}
 // =================================================
 PhysBody3D::PhysBody3D(btRigidBody* body) : body(body)
 {}

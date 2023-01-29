@@ -16,6 +16,7 @@ struct PhysBody3D
 {
 	friend class ModulePhysics3D;
 public:
+	PhysBody3D();
 	PhysBody3D(btRigidBody* body);
 	~PhysBody3D();
 
@@ -36,6 +37,10 @@ public:
 	btRigidBody* body = nullptr;
 	p2List<Module*> collision_listeners;
 	btVector3 INITposition;
+	bool is_sensor = false;
+	btCollisionShape* colShape;
+	btDefaultMotionState* motionState;
+
 };
 
 #endif // __PhysBody3D_H__
