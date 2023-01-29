@@ -274,8 +274,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	switch (body2->id)
 	{
-	case 1:	// este era el coche que no va :')
-		LOG("111 colisionnn");
+	case 1:
+		LOG("colision coche con cubo");
+		win = true;
 		break;
 	case 2:
 		LOG("colisionnn");

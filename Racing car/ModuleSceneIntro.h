@@ -58,4 +58,7 @@ public:
 
 	PhysBody3D* pbodyGoal;
 	PhysBody3D* pbodyGoal2;
+
+private:
+	bool win;
 };
