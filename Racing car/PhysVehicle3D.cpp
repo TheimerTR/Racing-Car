@@ -216,11 +216,11 @@ void PhysVehicle3D::ResetInitPos()
 
 	vec3 p = { GetPosition().getX(), GetPosition().getY(), GetPosition().getZ() };
 	M[15] = 1;
-	M[0] = cos(0);
-	M[2] = -sin(0);
+	M[0] = cos(90);
+	M[2] = -sin(90);
 	M[5] = 1;
-	M[8] = sin(0);
-	M[10] = cos(0);
+	M[8] = sin(90);
+	M[10] = cos(90);
 	M[12] = p.x;
 	M[13] = p.y;
 	M[14] = p.z;
@@ -235,11 +235,11 @@ void PhysVehicle3D::ResetCar()
 
 	vec3 p = { GetinitiPos().getX(), GetinitiPos().getY(), GetinitiPos().getZ() };
 	M[15] = 1;
-	M[0] = cos(0);
-	M[2] = -sin(0);
+	M[0] = cos(90);
+	M[2] = -sin(90);
 	M[5] = 1;
-	M[8] = sin(0);
-	M[10] = cos(0);
+	M[8] = sin(90);
+	M[10] = cos(90);
 	M[12] = p.x;
 	M[13] = p.y;
 	M[14] = p.z;
