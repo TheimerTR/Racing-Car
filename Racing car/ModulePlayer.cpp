@@ -5,6 +5,8 @@
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 
+#include "ModuleSceneIntro.h"
+
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
