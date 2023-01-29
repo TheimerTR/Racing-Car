@@ -62,4 +62,7 @@ public:
 	PhysBody3D* pbodyGoal4;
 
 private:
+
+	uint victory;
+	uint defeat;
 };

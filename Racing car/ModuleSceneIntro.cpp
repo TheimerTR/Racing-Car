@@ -254,6 +254,14 @@ bool ModuleSceneIntro::Start()
 	//pbodyGoal2->collision_listeners.add(this);
 	primitives.PushBack(bodyGoal2);
 
+
+
+	//audio
+
+	App->audio->PlayMusic("Assets/Audio/music.ogg");
+	victory = App->audio->LoadFx("Assets/Audio/victory.wav");
+	defeat = App->audio->LoadFx("Assets/Audio/defeat.wav");
+
 	return ret;
 }
 
