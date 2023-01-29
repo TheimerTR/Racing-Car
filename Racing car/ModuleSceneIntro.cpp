@@ -147,7 +147,7 @@ bool ModuleSceneIntro::Start()
 	bodyC->size = { 12.3, 5, 0.5 };
 	bodyC->color = Green;
 	bodyC->SetPos(20, 61.7, 20);
-	pbodyC = App->physics->AddBody(*bodyC, 1000);
+	pbodyC = App->physics->AddBody(*bodyC,1000);
 	primitives.PushBack(bodyC);
 
 
@@ -168,7 +168,9 @@ bool ModuleSceneIntro::Start()
 
 
 	//App->physics->AddConstraintSlider(*pbodyC, *pbodyD, frameInC, frameInD);
-	//	
+	//
+
+
 	return ret;
 }
 
@@ -187,9 +189,13 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	for (int n = 0; n < primitives.Count(); n++) {
+	for (uint n = 0; n < primitives.Count(); n++) {
+		
+		primitives[n]->Update();
+
 		primitives[n]->Render();
 	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
@@ -203,6 +209,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	
 }
 
 void ModuleSceneIntro::CreateLineWall(vec3 initial, vec3 final, float radius, float height, int pilarnum) {
